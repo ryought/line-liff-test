@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>storage test</title>
+</head>
+<body>
+    <h1>storage viewer</h1>
+    <div id="status"></div>
+    <div id="userid"></div>
+    <button id="registerButton">Register</button>
+    <button id="clearButton">Clear</button>
+
+<script>
+    console.log('hoge')
+
+    var button = document.getElementById('registerButton')
+    button.addEventListener('click', function () {
+      localStorage.setItem('userId', '001210')
+      document.getElementById('status').innerHTML = 'registered'
+    })
+
+    var clear = document.getElementById('clearButton')
+    clear.addEventListener('click', function () {
+      localStorage.clear()
+      document.getElementById('status').innerHTML = 'cleared'
+    })
+
+    var value = localStorage.getItem('userId')
+    if (value) {
+      document.getElementById('userid').innerHTML = value
+    }
+</script>
+
+</body>
+</html>
