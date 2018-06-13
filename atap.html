@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8"/>
+  <title>Test アプリケーション v3</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+</head>
+<body>
+
+  <div id="atap-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = '//atap.jp/js/sdk.js';
+    js.charset = 'utf-8';
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'atap-jssdk'));</script>
+  <!-- buttton -->
+  <div class="atap-button" data-bid="a54e782a-4d78-4b49-9d97-939ab3990782"></div>
+  <div id="status"></div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
+  <script>
+    $(window).on('load', function(){
+      // liffの初期化
+      liff.init(function (data) {
+        // window.alert("initialized" + data.context.userId);
+        document.getElementById('status').innerHTML = data.context.userId 
+      });
+    });
+  </script>
+
+  <script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <script>
+    $('#btn').on('click', function() {
+      liff.getProfile().then(function (profile) {
+        liff.sendMessages([
+          {
+            type: 'text',
+            text: 'From:' + profile.displayName + ' Id:' + profile.userId
+          }
+        ]).then(function () {
+          liff.closeWindow();
+        }).catch(function (error) {
+          window.alert('Error sending message: ' + error.message);
+        });
+      }).catch(function (error) {
+        window.alert("Error getting profile: " + error.message);
+      });
+    });
+  </script>
+
+</body>
+</html>
