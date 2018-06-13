@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8"/>
-  <title>Test アプリケーション v2</title>
+  <title>Test アプリケーション v3</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 </head>
@@ -46,7 +46,7 @@
         liff.sendMessages([
           {
             type: 'text',
-            text: 'From:' + profile.displayName
+            text: 'From:' + profile.displayName + ' Id:' + profile.userId
           }
         ]).then(function () {
           liff.closeWindow();
