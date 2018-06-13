@@ -8,32 +8,29 @@
 </head>
 <body>
 
-  <div class="container">
-    <h1>hello world</h1>
-    <canvas id="canvas"></canvas>
-    <button id="btn" type="button" class="btn btn-primary btn-block">Share</button>
-  </div>
+  <div id="atap-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = '//atap.jp/js/sdk.js';
+    js.charset = 'utf-8';
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'atap-jssdk'));</script>
+  <!-- buttton -->
+  <div class="atap-button" data-bid="a54e782a-4d78-4b49-9d97-939ab3990782"></div>
+  <div id="status"></div>
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+
   <script>
-    const canvas = document.querySelector('#canvas');
-    const signaturePad = new SignaturePad(canvas, {
-      backgroundColor: 'rgb(238,238,238)',
-    });
-
     $(window).on('load', function(){
-      canvas.setAttribute('width', $('.container').width());
-      canvas.setAttribute('height', window.innerHeight - $('#btn').outerHeight() - 10);
-
-      signaturePad.clear();
-
       // liffの初期化
       liff.init(function (data) {
-        window.alert("initialized");
-        window.alert("initialized" + data.context.userId);
+        // window.alert("initialized" + data.context.userId);
+        document.getElementById('status').innerHTML = data.context.userId 
       });
     });
   </script>
@@ -57,41 +54,6 @@
       }).catch(function (error) {
         window.alert("Error getting profile: " + error.message);
       });
-      /*
-      $.ajax({
-        type: 'POST',
-        url: '/saveimage',
-        data: {
-          'image': signaturePad.toDataURL('image/jpeg')
-        },
-        success: function (res, status) {
-          liff.getProfile().then(function (profile) {
-            liff.sendMessages([
-              {
-                type: 'image',
-                originalContentUrl: 'https://' + document.domain + '/imgs/' + res + '.jpg',
-                previewImageUrl: 'https://' + document.domain + '/imgs/' + res + '_240.jpg'
-              },
-              {
-                type: 'text',
-                text: 'From:' + profile.displayName
-              }
-            ]).then(function () {
-              liff.closeWindow();
-            }).catch(function (error) {
-              window.alert('Error sending message: ' + error.message);
-            });
-          }).catch(function (error) {
-              window.alert("Error getting profile: " + error.message);
-          });
-        },
-        error: function (res) {
-          window.alert('Error saving image: ' + res.status);
-        },
-        complete: function(data) {
-        }
-      });
-      */
     });
   </script>
 
